@@ -1,5 +1,10 @@
 ---
 title: FreeIOE 开源物联网智能网关项目
+categories:
+	- freeioe
+tags:
+	- freeioe
+	- thingsroot
 ---
 
 # 什么是FreeIOE
