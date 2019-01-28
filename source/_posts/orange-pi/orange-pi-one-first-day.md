@@ -31,20 +31,20 @@ tags:
 
 ### OrangePi PC固件
 
-OrangePi PC固件是能让OrangePi One跑起来的，直接make menuconfi时选择Orange Pi PC即可编译生成镜像文件。(直接解压ext4的img文件，然后dd到tf卡上即可）
+OrangePi PC固件是能让OrangePi One跑起来的，直接<code>`make menuconfig`</code>时选择Orange Pi PC即可编译生成镜像文件。(直接解压ext4的img文件，然后dd到tf卡上即可）
 
 
 ### OrangePi One专属固件
 
-One和Pc还是有一些差别的，比如电源芯片部分PC用的是SY8106A，同时从sunxi的uboot configs里面看到CONFIG_DRAM_CLK也不一致，好像是Pi PC使用了低频率的RAM。
+One和Pc还是有一些差别的，比如电源芯片部分PC用的是SY8106A，同时从sunxi的uboot configs里面看到CONFIG_DRAM_CLK也不一致。
 > http://linux-sunxi.org/Table_of_Allwinner_based_boards
 
 
-OpenWRT的改动:
+#### OpenWRT的改动:
 
 1. u-boot
 
-```
+```patch
 --- a/package/boot/uboot-sunxi/Makefile
 +++ b/package/boot/uboot-sunxi/Makefile
 @@ -156,6 +156,12 @@ define U-Boot/orangepi_pc
@@ -73,7 +73,7 @@ OpenWRT的改动:
 
 2. target
 
-```
+```patch
 --- a/target/linux/sunxi/image/cortex-a7.mk
 +++ b/target/linux/sunxi/image/cortex-a7.mk
 @@ -149,6 +149,16 @@ endef
@@ -99,7 +99,7 @@ OpenWRT的改动:
 3. 串口启用(非必要)
 
 以下是 patches-4.14/900-ARM-dts-sun8i-kooiot-Orange-Pi-One.patch 文件内容
-```
+```patch
 --- a/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts
 --- b/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts
 @@ -84,7 +84,7 @@
@@ -136,10 +136,17 @@ OpenWRT的改动:
  &usb_otg {
 ```
 
-至此make menuconfig并选中ext4镜像文件，之后就是等电脑干活了 -.-
+至此<code>`make menuconfig`</code>并选中ext4镜像文件，之后就是等电脑干活了 -.-
 
 
 ## 镜像下载地址
 
 [百度网盘下载地址](https://pan.baidu.com/s/1s1sehr_goxokSe5H04VBsg)
+
+
+## TODO
+
+1. 重启键
+
+重启按键绑定到KEY_RESTART也并没有启作用，这几天再研究一下。
 
