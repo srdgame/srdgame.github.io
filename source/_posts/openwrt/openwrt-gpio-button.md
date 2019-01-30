@@ -16,7 +16,7 @@ OpenWRT gpio button有两种方式：
 1. 普通gpio-keys/gpio-key-polled按键
 	这种相当于普通键盘事件
 2. 启用gpio-button-hotplug
-	OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。
+	OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用netlink转发按键事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。
 
 
 ## gpio-keys 和 gpio-key-polled
