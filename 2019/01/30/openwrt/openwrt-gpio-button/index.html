@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="什么是FreeIOEFreeIOE 是一个开源的物联网智能网关框架，方便用户快速构建物联网智能网关产品。 特点 基于 Skynet 框架  纯C语言的高扩展性框架，极少的系统依赖、方便快速移植 Lua 语言开发应用  高效、灵活、跨平台的物联网应用开发 集成云服务 - 冬笋云  冬笋云提供FreeIOE网关的管理维护以及应用中心服务 极简的设备模型  低门槛、高扩展的设备模型 丰富的开发方式  设">
-<meta name="keywords" content="freeioe,thingsroot">
+  <meta name="description" content="OpenWRT GPIO ButtonGPIO ButtonOpenWRT gpio button有两种方式：  普通gpio-keys/gpio-key-polled按键 这种相当于普通键盘事件 启用gpio-button-hotplug OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发">
+<meta name="keywords" content="openwrt,gpio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FreeIOE 开源物联网智能网关项目">
-<meta property="og:url" content="http://srdgame.github.io/2018/12/28/freeioe/index.html">
+<meta property="og:title" content="OpenWRT GPIO 按键绑定">
+<meta property="og:url" content="http://srdgame.github.io/2019/01/30/openwrt/openwrt-gpio-button/index.html">
 <meta property="og:site_name" content="自言自语-常">
-<meta property="og:description" content="什么是FreeIOEFreeIOE 是一个开源的物联网智能网关框架，方便用户快速构建物联网智能网关产品。 特点 基于 Skynet 框架  纯C语言的高扩展性框架，极少的系统依赖、方便快速移植 Lua 语言开发应用  高效、灵活、跨平台的物联网应用开发 集成云服务 - 冬笋云  冬笋云提供FreeIOE网关的管理维护以及应用中心服务 极简的设备模型  低门槛、高扩展的设备模型 丰富的开发方式  设">
+<meta property="og:description" content="OpenWRT GPIO ButtonGPIO ButtonOpenWRT gpio button有两种方式：  普通gpio-keys/gpio-key-polled按键 这种相当于普通键盘事件 启用gpio-button-hotplug OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-28T02:37:26.320Z">
+<meta property="og:updated_time" content="2019-01-30T04:37:19.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FreeIOE 开源物联网智能网关项目">
-<meta name="twitter:description" content="什么是FreeIOEFreeIOE 是一个开源的物联网智能网关框架，方便用户快速构建物联网智能网关产品。 特点 基于 Skynet 框架  纯C语言的高扩展性框架，极少的系统依赖、方便快速移植 Lua 语言开发应用  高效、灵活、跨平台的物联网应用开发 集成云服务 - 冬笋云  冬笋云提供FreeIOE网关的管理维护以及应用中心服务 极简的设备模型  低门槛、高扩展的设备模型 丰富的开发方式  设">
+<meta name="twitter:title" content="OpenWRT GPIO 按键绑定">
+<meta name="twitter:description" content="OpenWRT GPIO ButtonGPIO ButtonOpenWRT gpio button有两种方式：  普通gpio-keys/gpio-key-polled按键 这种相当于普通键盘事件 启用gpio-button-hotplug OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发">
 
 
 
 
 
 
-  <link rel="canonical" href="http://srdgame.github.io/2018/12/28/freeioe/">
+  <link rel="canonical" href="http://srdgame.github.io/2019/01/30/openwrt/openwrt-gpio-button/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>FreeIOE 开源物联网智能网关项目 | 自言自语-常</title>
+  <title>OpenWRT GPIO 按键绑定 | 自言自语-常</title>
   
 
 
@@ -323,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://srdgame.github.io/2018/12/28/freeioe/">
+    <link itemprop="mainEntityOfPage" href="http://srdgame.github.io/2019/01/30/openwrt/openwrt-gpio-button/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dirk Chang">
@@ -340,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">FreeIOE 开源物联网智能网关项目
+          <h1 class="post-title" itemprop="name headline">OpenWRT GPIO 按键绑定
 
               
             
@@ -366,24 +366,12 @@
                 
               
 
-              <time title="Created: 2018-12-28 14:09:40" itemprop="dateCreated datePublished" datetime="2018-12-28T14:09:40+08:00">2018-12-28</time>
+              <time title="Created: 2019-01-30 11:34:03 / Modified: 12:37:19" itemprop="dateCreated datePublished" datetime="2019-01-30T11:34:03+08:00">2019-01-30</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-28 10:37:26" itemprop="dateModified" datetime="2019-01-28T10:37:26+08:00">2019-01-28</time>
               
             
           </span>
@@ -400,7 +388,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/freeioe/" itemprop="url" rel="index"><span itemprop="name">freeioe</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/openwrt/" itemprop="url" rel="index"><span itemprop="name">openwrt</span></a></span>
 
                 
                 
@@ -435,34 +423,18 @@
       
 
       
-        <h1 id="什么是FreeIOE"><a href="#什么是FreeIOE" class="headerlink" title="什么是FreeIOE"></a>什么是FreeIOE</h1><p><strong><em><a href="http://freeioe.org" target="_blank" rel="noopener">FreeIOE</a></em></strong> 是一个开源的物联网智能网关框架，方便用户快速构建物联网智能网关产品。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>基于 <a href="http://github.com/cloudwu/skynet" target="_blank" rel="noopener">Skynet</a> 框架<br>  纯C语言的高扩展性框架，极少的系统依赖、方便快速移植</li>
-<li><a href="http://www.lua.org" target="_blank" rel="noopener">Lua</a> 语言开发应用<br>  高效、灵活、跨平台的物联网应用开发</li>
-<li>集成云服务 - <a href="http://cloud.thingsroot.com" target="_blank" rel="noopener">冬笋云</a><br>  冬笋云提供FreeIOE网关的管理维护以及应用中心服务</li>
-<li>极简的设备模型<br>  低门槛、高扩展的设备模型</li>
-<li>丰富的开发方式<br>  设备在线开发、平台在线开发、VSCode开发插件</li>
-<li>丰富的调试信息<br>  应用日志、通讯报文的平台化支持</li>
-</ul>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
-<li>数据采集<br>  从电表、PLC、CNC等具备数据接口的设备收集设备运行/现场数据</li>
-<li>边缘计算<br>  在网关中进行业务数据逻辑运算，事件报警、自动控制等功能</li>
-<li>远程控制<br>  远程操作、控制现场设备</li>
-<li>远程维护<br>  远程设定现场设备流程、参数</li>
-<li>系统集成<br>  接入数据平台、云平台。如:<ul>
-<li>阿里云</li>
-<li>百度云</li>
-<li>华为云</li>
-<li>冬笋云</li>
-</ul>
-</li>
-<li>设备智能<br>  基于公众数据的智能化。如天气信息、地址位置、阶梯电价等等公众数据进行智能化生产</li>
-</ul>
-<h2 id="历程"><a href="#历程" class="headerlink" title="历程"></a>历程</h2><p>在12年的时候，进入了<a href="http://www.symid.com" target="_blank" rel="noopener">旋思科技</a>，踏入了工业自动化的圈子。感叹工业圈子技术落后的同时，萌发构建全新网关产品的想法。跟viccom童鞋在想法上相互学习了的很多。</p>
-<p>于13年下半年开启构建全新网关产品，使用了lua多进程+zmq内部通讯的机制搭建了所谓的symlink v3产品，实现一些产品的想法，也完成了基础的配套平台的demo。奈何工业物联网市场在国内当时并未获得认可，这款产品匆匆结束了它的使命。 虽然后来也默默做了一些东西，但由于其架构的基础并不算稳定，我也失去了对其进行进一步开发的想法。代码在<a href="http://github.com/kooiot/goiot" target="_blank" rel="noopener">GoIoT项目</a></p>
-<p>之后接触了云风的<strong><em><a href="http://github.com/cloudwu/skynet" target="_blank" rel="noopener">skynet</a></em></strong>项目（其实很久之前就知道这个项目，一直都并未花时间去了解），并用skynet开发了一款视频监控中GB28181的网关项目。所以在17年回归旋思科技之后，坚定了使用skynet重新打造智能网关产品的想法，于是有了FreeIOE项目的诞生。</p>
-<p>而冬笋云最早是为了构造一个工业数据云平台，是为了一个储能项目构建的。技术调研后，决定使用ERPNext作为基础进行开发（储能项目有很大一部分需要erp的功能），而ERPNext项目的好处是他有一个基础框架<a href="http://frappe.io" target="_blank" rel="noopener">Frappe</a>。</p>
-<p>通过了将近两年的时间，和<a href="http://github.com/viccom" target="_blank" rel="noopener">viccom</a> 联手打造了 FreeIOE + ThingsRoot Cloud的全新工业物联网解决方案。</p>
+        <h1 id="OpenWRT-GPIO-Button"><a href="#OpenWRT-GPIO-Button" class="headerlink" title="OpenWRT GPIO Button"></a>OpenWRT GPIO Button</h1><h2 id="GPIO-Button"><a href="#GPIO-Button" class="headerlink" title="GPIO Button"></a>GPIO Button</h2><p>OpenWRT gpio button有两种方式：</p>
+<ol>
+<li>普通gpio-keys/gpio-key-polled按键<br> 这种相当于普通键盘事件</li>
+<li>启用gpio-button-hotplug<br> OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。</li>
+</ol>
+<h2 id="gpio-keys-和-gpio-key-polled"><a href="#gpio-keys-和-gpio-key-polled" class="headerlink" title="gpio-keys 和 gpio-key-polled"></a>gpio-keys 和 gpio-key-polled</h2><p>使用此方法映射按键，需要去<strong><em>make menuconfig</em></strong>中的Kernel Modules-&gt;Input Modules里面选中对应的选项。而此后在/dev/input下就会出现event&lt;n>文件</p>
+<h2 id="gpio-button-hotplug-按键映射"><a href="#gpio-button-hotplug-按键映射" class="headerlink" title="gpio-button-hotplug 按键映射"></a>gpio-button-hotplug 按键映射</h2><p>OpenWRT的gpio-button-hotplug提供了以下按键的映射,即按键code对应的脚本文件名称。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BH_MAP(_code, _name)		\</span></span><br><span class="line">	&#123;				\</span><br><span class="line">		.code = (_code),	\</span><br><span class="line">		.name = (_name),	\</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> struct bh_map button_map[] = &#123;</span><br><span class="line">	BH_MAP(BTN_0,			<span class="string">"BTN_0"</span>),</span><br><span class="line">	BH_MAP(BTN_1,			<span class="string">"BTN_1"</span>),</span><br><span class="line">	BH_MAP(BTN_2,			<span class="string">"BTN_2"</span>),</span><br><span class="line">	BH_MAP(BTN_3,			<span class="string">"BTN_3"</span>),</span><br><span class="line">	BH_MAP(BTN_4,			<span class="string">"BTN_4"</span>),</span><br><span class="line">	BH_MAP(BTN_5,			<span class="string">"BTN_5"</span>),</span><br><span class="line">	BH_MAP(BTN_6,			<span class="string">"BTN_6"</span>),</span><br><span class="line">	BH_MAP(BTN_7,			<span class="string">"BTN_7"</span>),</span><br><span class="line">	BH_MAP(BTN_8,			<span class="string">"BTN_8"</span>),</span><br><span class="line">	BH_MAP(BTN_9,			<span class="string">"BTN_9"</span>),</span><br><span class="line">	BH_MAP(KEY_BRIGHTNESS_ZERO,	<span class="string">"brightness_zero"</span>),</span><br><span class="line">	BH_MAP(KEY_CONFIG,		<span class="string">"config"</span>),</span><br><span class="line">	BH_MAP(KEY_COPY,		<span class="string">"copy"</span>),</span><br><span class="line">	BH_MAP(KEY_EJECTCD,		<span class="string">"eject"</span>),</span><br><span class="line">	BH_MAP(KEY_HELP,		<span class="string">"help"</span>),</span><br><span class="line">	BH_MAP(KEY_LIGHTS_TOGGLE,	<span class="string">"lights_toggle"</span>),</span><br><span class="line">	BH_MAP(KEY_PHONE,		<span class="string">"phone"</span>),</span><br><span class="line">	BH_MAP(KEY_POWER,		<span class="string">"power"</span>),</span><br><span class="line">	BH_MAP(KEY_RESTART,		<span class="string">"reset"</span>),</span><br><span class="line">	BH_MAP(KEY_RFKILL,		<span class="string">"rfkill"</span>),</span><br><span class="line">	BH_MAP(KEY_VIDEO,		<span class="string">"video"</span>),</span><br><span class="line">	BH_MAP(KEY_WIMAX,		<span class="string">"wwan"</span>),</span><br><span class="line">	BH_MAP(KEY_WLAN,		<span class="string">"wlan"</span>),</span><br><span class="line">	BH_MAP(KEY_WPS_BUTTON,		<span class="string">"wps"</span>),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在折腾OrangePi One设备按键的时候，浪费了将近两天的时间在gpio-button-hotplug不起作用上。 原因是package的dependency并不会强制使kmod模块被开启，我的config文件是从树莓派的config文件修改而来，导致即使有了</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DEFAULT_kmod-gpio-button-hotplug=y</span><br></pre></td></tr></table></figure>
+<p>也不代表下面这个被选中<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_PACKAGE_kmod-gpio-button-hotplug=y</span><br></pre></td></tr></table></figure></p>
+<p>两天的大好时光啊~~</p>
 
       
     </div>
@@ -486,9 +458,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/freeioe/" rel="tag"># freeioe</a>
+            <a href="/tags/openwrt/" rel="tag"># openwrt</a>
           
-            <a href="/tags/thingsroot/" rel="tag"># thingsroot</a>
+            <a href="/tags/gpio/" rel="tag"># gpio</a>
           
         </div>
       
@@ -501,8 +473,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/28/freeioe/documents/" rel="next" title="FreeIOE 文档">
-                <i class="fa fa-chevron-left"></i> FreeIOE 文档
+              <a href="/2019/01/27/orange-pi/orange-pi-one-first-day/" rel="next" title="Orange Pi One First Day">
+                <i class="fa fa-chevron-left"></i> Orange Pi One First Day
               </a>
             
           </div>
@@ -510,10 +482,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/27/orange-pi/orange-pi-one-first-day/" rel="prev" title="Orange Pi One First Day">
-                Orange Pi One First Day <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +635,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是FreeIOE"><span class="nav-number">1.</span> <span class="nav-text">什么是FreeIOE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用场景"><span class="nav-number">1.2.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#历程"><span class="nav-number">1.3.</span> <span class="nav-text">历程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenWRT-GPIO-Button"><span class="nav-number">1.</span> <span class="nav-text">OpenWRT GPIO Button</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPIO-Button"><span class="nav-number">1.1.</span> <span class="nav-text">GPIO Button</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gpio-keys-和-gpio-key-polled"><span class="nav-number">1.2.</span> <span class="nav-text">gpio-keys 和 gpio-key-polled</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gpio-button-hotplug-按键映射"><span class="nav-number">1.3.</span> <span class="nav-text">gpio-button-hotplug 按键映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.4.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
             
 
           </div>

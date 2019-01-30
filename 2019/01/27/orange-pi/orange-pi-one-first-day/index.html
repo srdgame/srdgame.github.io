@@ -106,7 +106,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://srdgame.github.io/2019/01/27/orange-pi/orange-pi-one-first-day/orangepi-one-package.jpg">
 <meta property="og:image" content="http://srdgame.github.io/2019/01/27/orange-pi/orange-pi-one-first-day/orangepi-one-and-raspberry3b-plus.jpg">
-<meta property="og:updated_time" content="2019-01-28T03:02:29.063Z">
+<meta property="og:updated_time" content="2019-01-30T03:31:45.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Orange Pi One First Day">
 <meta name="twitter:description" content="Orange Pi One 上手日记Why Orange Pi One刚刚入手OrangePi One，主要目标是选定一款国内设计生产的单板机，方便19年的市场宣传。 手头也弄好了树莓派3B+，OpenWRT的编译也做过了，WIFI驱动缺少的bin文件什么的（更新了一下openwrt master,这部分已经集成无需再折腾）。其实我并不满意树莓派,主要是串口太少，默认也没启用调试串口(虽然可以通过">
@@ -386,7 +386,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-28 11:02:29" itemprop="dateModified" datetime="2019-01-28T11:02:29+08:00">2019-01-28</time>
+                <time title="Modified: 2019-01-30 11:31:45" itemprop="dateModified" datetime="2019-01-30T11:31:45+08:00">2019-01-30</time>
               
             
           </span>
@@ -473,6 +473,9 @@
 <li>重启键</li>
 </ol>
 <p>重启按键绑定到KEY_RESTART也并没有启作用，这几天再研究一下。</p>
+<p>[2019-01-30 补充]<br>由于config文件是从其他配置修改而来，导致kmod-gpio-button-hotplug并没有选中(CONFIG_PACKAGE_kmod-gpio-button-hotplug=y)。而选中此选项后，才能保证按键会正确触发/etc/rc.button中的脚本。</p>
+<p>我已经将sw4案件改名为power，按下会让OrangePi One关机。(网盘镜像已经更新，如需指向其他案件脚本: 1. dts中改名 2. 更改/etc/rc.button/power脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--- a/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts</span><br><span class="line">--- b/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts</span><br><span class="line">@@ -82,9 +82,9 @@</span><br><span class="line"> 		pinctrl-names = &quot;default&quot;;</span><br><span class="line"> 		pinctrl-0 = &lt;&amp;sw_r_opc&gt;;</span><br><span class="line"> </span><br><span class="line">-		sw4 &#123;</span><br><span class="line">-			label = &quot;sw4&quot;;</span><br><span class="line">-			linux,code = &lt;BTN_0&gt;;</span><br><span class="line">+		power &#123;</span><br><span class="line">+			label = &quot;power&quot;;</span><br><span class="line">+			linux,code = &lt;KEY_POWER&gt;;</span><br><span class="line"> 			gpios = &lt;&amp;r_pio 0 3 GPIO_ACTIVE_LOW&gt;;</span><br><span class="line"> 		&#125;;</span><br><span class="line"> 	&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -520,6 +523,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/30/openwrt/openwrt-gpio-button/" rel="prev" title="OpenWRT GPIO 按键绑定">
+                OpenWRT GPIO 按键绑定 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -591,7 +598,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -635,7 +642,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

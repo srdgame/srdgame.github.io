@@ -319,6 +319,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://srdgame.github.io/2019/01/30/openwrt/openwrt-gpio-button/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dirk Chang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自言自语-常">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/01/30/openwrt/openwrt-gpio-button/" class="post-title-link" itemprop="url">OpenWRT GPIO 按键绑定</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-30 11:34:03 / Modified: 12:37:19" itemprop="dateCreated datePublished" datetime="2019-01-30T11:34:03+08:00">2019-01-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/openwrt/" itemprop="url" rel="index"><span itemprop="name">openwrt</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="OpenWRT-GPIO-Button"><a href="#OpenWRT-GPIO-Button" class="headerlink" title="OpenWRT GPIO Button"></a>OpenWRT GPIO Button</h1><h2 id="GPIO-Button"><a href="#GPIO-Button" class="headerlink" title="GPIO Button"></a>GPIO Button</h2><p>OpenWRT gpio button有两种方式：</p>
+<ol>
+<li>普通gpio-keys/gpio-key-polled按键<br> 这种相当于普通键盘事件</li>
+<li>启用gpio-button-hotplug<br> OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。</li>
+</ol>
+<h2 id="gpio-keys-和-gpio-key-polled"><a href="#gpio-keys-和-gpio-key-polled" class="headerlink" title="gpio-keys 和 gpio-key-polled"></a>gpio-keys 和 gpio-key-polled</h2><p>使用此方法映射按键，需要去<strong><em>make menuconfig</em></strong>中的Kernel Modules-&gt;Input Modules里面选中对应的选项。而此后在/dev/input下就会出现event&lt;n>文件</p>
+<h2 id="gpio-button-hotplug-按键映射"><a href="#gpio-button-hotplug-按键映射" class="headerlink" title="gpio-button-hotplug 按键映射"></a>gpio-button-hotplug 按键映射</h2><p>OpenWRT的gpio-button-hotplug提供了以下按键的映射,即按键code对应的脚本文件名称。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BH_MAP(_code, _name)		\</span></span><br><span class="line">	&#123;				\</span><br><span class="line">		.code = (_code),	\</span><br><span class="line">		.name = (_name),	\</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> struct bh_map button_map[] = &#123;</span><br><span class="line">	BH_MAP(BTN_0,			<span class="string">"BTN_0"</span>),</span><br><span class="line">	BH_MAP(BTN_1,			<span class="string">"BTN_1"</span>),</span><br><span class="line">	BH_MAP(BTN_2,			<span class="string">"BTN_2"</span>),</span><br><span class="line">	BH_MAP(BTN_3,			<span class="string">"BTN_3"</span>),</span><br><span class="line">	BH_MAP(BTN_4,			<span class="string">"BTN_4"</span>),</span><br><span class="line">	BH_MAP(BTN_5,			<span class="string">"BTN_5"</span>),</span><br><span class="line">	BH_MAP(BTN_6,			<span class="string">"BTN_6"</span>),</span><br><span class="line">	BH_MAP(BTN_7,			<span class="string">"BTN_7"</span>),</span><br><span class="line">	BH_MAP(BTN_8,			<span class="string">"BTN_8"</span>),</span><br><span class="line">	BH_MAP(BTN_9,			<span class="string">"BTN_9"</span>),</span><br><span class="line">	BH_MAP(KEY_BRIGHTNESS_ZERO,	<span class="string">"brightness_zero"</span>),</span><br><span class="line">	BH_MAP(KEY_CONFIG,		<span class="string">"config"</span>),</span><br><span class="line">	BH_MAP(KEY_COPY,		<span class="string">"copy"</span>),</span><br><span class="line">	BH_MAP(KEY_EJECTCD,		<span class="string">"eject"</span>),</span><br><span class="line">	BH_MAP(KEY_HELP,		<span class="string">"help"</span>),</span><br><span class="line">	BH_MAP(KEY_LIGHTS_TOGGLE,	<span class="string">"lights_toggle"</span>),</span><br><span class="line">	BH_MAP(KEY_PHONE,		<span class="string">"phone"</span>),</span><br><span class="line">	BH_MAP(KEY_POWER,		<span class="string">"power"</span>),</span><br><span class="line">	BH_MAP(KEY_RESTART,		<span class="string">"reset"</span>),</span><br><span class="line">	BH_MAP(KEY_RFKILL,		<span class="string">"rfkill"</span>),</span><br><span class="line">	BH_MAP(KEY_VIDEO,		<span class="string">"video"</span>),</span><br><span class="line">	BH_MAP(KEY_WIMAX,		<span class="string">"wwan"</span>),</span><br><span class="line">	BH_MAP(KEY_WLAN,		<span class="string">"wlan"</span>),</span><br><span class="line">	BH_MAP(KEY_WPS_BUTTON,		<span class="string">"wps"</span>),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在折腾OrangePi One设备按键的时候，浪费了将近两天的时间在gpio-button-hotplug不起作用上。 原因是package的dependency并不会强制使kmod模块被开启，我的config文件是从树莓派的config文件修改而来，导致即使有了</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DEFAULT_kmod-gpio-button-hotplug=y</span><br></pre></td></tr></table></figure>
+<p>也不代表下面这个被选中<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_PACKAGE_kmod-gpio-button-hotplug=y</span><br></pre></td></tr></table></figure></p>
+<p>两天的大好时光啊~~</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://srdgame.github.io/2019/01/27/orange-pi/orange-pi-one-first-day/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -381,7 +553,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-28 11:02:29" itemprop="dateModified" datetime="2019-01-28T11:02:29+08:00">2019-01-28</time>
+                <time title="Modified: 2019-01-30 11:31:45" itemprop="dateModified" datetime="2019-01-30T11:31:45+08:00">2019-01-30</time>
               
             
           </span>
@@ -470,6 +642,9 @@
 <li>重启键</li>
 </ol>
 <p>重启按键绑定到KEY_RESTART也并没有启作用，这几天再研究一下。</p>
+<p>[2019-01-30 补充]<br>由于config文件是从其他配置修改而来，导致kmod-gpio-button-hotplug并没有选中(CONFIG_PACKAGE_kmod-gpio-button-hotplug=y)。而选中此选项后，才能保证按键会正确触发/etc/rc.button中的脚本。</p>
+<p>我已经将sw4案件改名为power，按下会让OrangePi One关机。(网盘镜像已经更新，如需指向其他案件脚本: 1. dts中改名 2. 更改/etc/rc.button/power脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--- a/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts</span><br><span class="line">--- b/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts</span><br><span class="line">@@ -82,9 +82,9 @@</span><br><span class="line"> 		pinctrl-names = &quot;default&quot;;</span><br><span class="line"> 		pinctrl-0 = &lt;&amp;sw_r_opc&gt;;</span><br><span class="line"> </span><br><span class="line">-		sw4 &#123;</span><br><span class="line">-			label = &quot;sw4&quot;;</span><br><span class="line">-			linux,code = &lt;BTN_0&gt;;</span><br><span class="line">+		power &#123;</span><br><span class="line">+			label = &quot;power&quot;;</span><br><span class="line">+			linux,code = &lt;KEY_POWER&gt;;</span><br><span class="line"> 			gpios = &lt;&amp;r_pio 0 3 GPIO_ACTIVE_LOW&gt;;</span><br><span class="line"> 		&#125;;</span><br><span class="line"> 	&#125;;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -938,7 +1113,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -982,7 +1157,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
