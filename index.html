@@ -364,7 +364,7 @@
                 
               
 
-              <time title="Created: 2019-01-30 11:34:03 / Modified: 12:37:19" itemprop="dateCreated datePublished" datetime="2019-01-30T11:34:03+08:00">2019-01-30</time>
+              <time title="Created: 2019-01-30 11:34:03 / Modified: 14:47:30" itemprop="dateCreated datePublished" datetime="2019-01-30T11:34:03+08:00">2019-01-30</time>
             
 
             
@@ -426,7 +426,7 @@
             <h1 id="OpenWRT-GPIO-Button"><a href="#OpenWRT-GPIO-Button" class="headerlink" title="OpenWRT GPIO Button"></a>OpenWRT GPIO Button</h1><h2 id="GPIO-Button"><a href="#GPIO-Button" class="headerlink" title="GPIO Button"></a>GPIO Button</h2><p>OpenWRT gpio button有两种方式：</p>
 <ol>
 <li>普通gpio-keys/gpio-key-polled按键<br> 这种相当于普通键盘事件</li>
-<li>启用gpio-button-hotplug<br> OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用案件netlink转发事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。</li>
+<li>启用gpio-button-hotplug<br> OpenWRT会将按键事件触发为hotplug事件，从而procd就可以接收事件从而运行/etc/rc.button下对应的脚本。 使用netlink转发按键事件到procd还是比较麻烦的，gpio-button-hotplug算是比较直接的方式。</li>
 </ol>
 <h2 id="gpio-keys-和-gpio-key-polled"><a href="#gpio-keys-和-gpio-key-polled" class="headerlink" title="gpio-keys 和 gpio-key-polled"></a>gpio-keys 和 gpio-key-polled</h2><p>使用此方法映射按键，需要去<strong><em>make menuconfig</em></strong>中的Kernel Modules-&gt;Input Modules里面选中对应的选项。而此后在/dev/input下就会出现event&lt;n>文件</p>
 <h2 id="gpio-button-hotplug-按键映射"><a href="#gpio-button-hotplug-按键映射" class="headerlink" title="gpio-button-hotplug 按键映射"></a>gpio-button-hotplug 按键映射</h2><p>OpenWRT的gpio-button-hotplug提供了以下按键的映射,即按键code对应的脚本文件名称。</p>
