@@ -150,3 +150,27 @@ One和Pc还是有一些差别的，比如电源芯片部分PC用的是SY8106A，
 
 重启按键绑定到KEY_RESTART也并没有启作用，这几天再研究一下。
 
+[2019-01-30 补充]
+由于config文件是从其他配置修改而来，导致kmod-gpio-button-hotplug并没有选中(CONFIG_PACKAGE_kmod-gpio-button-hotplug=y)。而选中此选项后，才能保证按键会正确触发/etc/rc.button中的脚本。
+
+我已经将sw4案件改名为power，按下会让OrangePi One关机。(网盘镜像已经更新，如需指向其他案件脚本: 1. dts中改名 2. 更改/etc/rc.button/power脚本
+
+```path
+--- a/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts
+--- b/arch/arm/boot/dts/sun8i-h3-orangepi-one.dts
+@@ -82,9 +82,9 @@
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&sw_r_opc>;
+ 
+-		sw4 {
+-			label = "sw4";
+-			linux,code = <BTN_0>;
++		power {
++			label = "power";
++			linux,code = <KEY_POWER>;
+ 			gpios = <&r_pio 0 3 GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+```
+
+
