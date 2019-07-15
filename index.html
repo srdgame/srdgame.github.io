@@ -42,25 +42,21 @@
 
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
 
 
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
 
 
 
@@ -73,8 +69,10 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '7.0.0',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    version: '7.2.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -86,13 +84,14 @@
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
     }
   };
 </script>
-
-
-  
-
 
 
 
@@ -108,7 +107,8 @@
 
 
 
-
+  
+  
   <link rel="canonical" href="http://srdgame.github.io/">
 
 
@@ -210,7 +210,6 @@
 
     
     
-    
       
     
 
@@ -225,7 +224,6 @@
           
           <li class="menu-item menu-item-tags">
 
-    
     
     
       
@@ -244,7 +242,6 @@
 
     
     
-    
       
     
 
@@ -259,7 +256,6 @@
           
           <li class="menu-item menu-item-archives">
 
-    
     
     
       
@@ -280,10 +276,6 @@
 
   
 </nav>
-
-
-
-  
 
 
 
@@ -346,13 +338,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -365,16 +357,14 @@
               
 
               <time title="Created: 2019-07-13 15:56:04" itemprop="dateCreated datePublished" datetime="2019-07-13T15:56:04+08:00">2019-07-13</time>
+            </span>
+          
+
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
@@ -382,15 +372,12 @@
                   <span class="post-meta-item-text">Edited on</span>
                 
                 <time title="Modified: 2019-07-15 14:37:20" itemprop="dateModified" datetime="2019-07-15T14:37:20+08:00">2019-07-15</time>
-              
+              </span>
             
-          </span>
+          
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -421,6 +408,11 @@
           
           
 
+          
+
+          
+
+          <br>
           
 
           
@@ -541,6 +533,8 @@
     
 
     
+
+    
     
     
 
@@ -615,13 +609,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -634,20 +628,17 @@
               
 
               <time title="Created: 2019-02-28 15:34:43 / Modified: 15:43:22" itemprop="dateCreated datePublished" datetime="2019-02-28T15:34:43+08:00">2019-02-28</time>
-            
-
-            
-              
-
-              
-            
-          </span>
+            </span>
+          
 
           
-            <span class="post-category">
             
-              <span class="post-meta-divider">|</span>
+
             
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -675,6 +666,11 @@
 
           
 
+          <br>
+          
+
+          
+
           
 
         </div>
@@ -698,6 +694,8 @@
         
       
     </div>
+
+    
 
     
 
@@ -776,13 +774,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -795,20 +793,17 @@
               
 
               <time title="Created: 2019-01-30 11:34:03 / Modified: 14:47:30" itemprop="dateCreated datePublished" datetime="2019-01-30T11:34:03+08:00">2019-01-30</time>
-            
-
-            
-              
-
-              
-            
-          </span>
+            </span>
+          
 
           
-            <span class="post-category">
             
-              <span class="post-meta-divider">|</span>
+
             
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -832,6 +827,11 @@
           
           
 
+          
+
+          
+
+          <br>
           
 
           
@@ -870,6 +870,8 @@
         
       
     </div>
+
+    
 
     
 
@@ -948,13 +950,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -967,16 +969,14 @@
               
 
               <time title="Created: 2019-01-27 11:48:14" itemprop="dateCreated datePublished" datetime="2019-01-27T11:48:14+08:00">2019-01-27</time>
+            </span>
+          
+
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
@@ -984,15 +984,12 @@
                   <span class="post-meta-item-text">Edited on</span>
                 
                 <time title="Modified: 2019-01-30 11:31:45" itemprop="dateModified" datetime="2019-01-30T11:31:45+08:00">2019-01-30</time>
-              
+              </span>
             
-          </span>
+          
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -1023,6 +1020,11 @@
           
           
 
+          
+
+          
+
+          <br>
           
 
           
@@ -1080,6 +1082,8 @@
         
       
     </div>
+
+    
 
     
 
@@ -1158,13 +1162,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -1177,16 +1181,14 @@
               
 
               <time title="Created: 2018-12-28 14:09:40" itemprop="dateCreated datePublished" datetime="2018-12-28T14:09:40+08:00">2018-12-28</time>
+            </span>
+          
+
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
@@ -1194,15 +1196,12 @@
                   <span class="post-meta-item-text">Edited on</span>
                 
                 <time title="Modified: 2019-01-28 10:37:26" itemprop="dateModified" datetime="2019-01-28T10:37:26+08:00">2019-01-28</time>
-              
+              </span>
             
-          </span>
+          
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -1226,6 +1225,11 @@
           
           
 
+          
+
+          
+
+          <br>
           
 
           
@@ -1280,6 +1284,8 @@
         
       
     </div>
+
+    
 
     
 
@@ -1358,13 +1364,13 @@
         
 
         <div class="post-meta">
-          <span class="post-time">
 
-            
-            
-            
+          
+          
+          
 
-            
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
@@ -1377,16 +1383,14 @@
               
 
               <time title="Created: 2018-12-28 14:09:40" itemprop="dateCreated datePublished" datetime="2018-12-28T14:09:40+08:00">2018-12-28</time>
+            </span>
+          
+
+          
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
@@ -1394,15 +1398,12 @@
                   <span class="post-meta-item-text">Edited on</span>
                 
                 <time title="Modified: 2019-01-28 10:37:30" itemprop="dateModified" datetime="2019-01-28T10:37:30+08:00">2019-01-28</time>
-              
+              </span>
             
-          </span>
+          
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -1437,6 +1438,11 @@
 
           
 
+          <br>
+          
+
+          
+
           
 
         </div>
@@ -1462,6 +1468,8 @@
         
       
     </div>
+
+    
 
     
 
@@ -1519,9 +1527,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -1533,7 +1538,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Dirk Chang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <div class="site-description motion-element" itemprop="description"></div>
           </div>
 
           
@@ -1553,7 +1558,11 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
                     
                     
                       
@@ -1578,7 +1587,11 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
                     
                     
                       
@@ -1612,13 +1625,11 @@
           
 
           
+
+          
           
 
           
-            
-          
-          
-
         </div>
       </div>
 
@@ -1628,6 +1639,7 @@
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
         
@@ -1656,7 +1668,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.0</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
 
 
 
@@ -1690,8 +1702,6 @@
     
 
     
-
-    
   </div>
 
   
@@ -1711,9 +1721,8 @@
 
 
 
-
-
-
+  
+  
 
 
 
@@ -1728,7 +1737,7 @@
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
 
   
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
@@ -1737,48 +1746,44 @@
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
-  
 
 
-  <script src="/js/src/utils.js?v=7.0.0"></script>
+  <script src="/js/utils.js?v=7.2.0"></script>
 
-  <script src="/js/src/motion.js?v=7.0.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
 
 
 
   
-
   
 
 
-  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
 
 
 
   
 
-
-
-  
-
-
-
+  <script src="/js/next-boot.js?v=7.2.0"></script>
 
   
 
   
 
   
+
+  
+
+  
+
+
+
+  
+
+
+
 
   
 
@@ -1797,6 +1802,15 @@
   
 
   
+
+  
+
+  
+
+  
+
+  
+
 
   
 
