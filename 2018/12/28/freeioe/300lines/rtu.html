@@ -1,0 +1,101 @@
+<hr>
+<p>title: 300 Lines 系列之RTU功能<br>date: 2019-07-13 15:56:04<br>categories:</p>
+<pre><code>- freeioe
+- 300lines
+</code></pre><p>tags:</p>
+<pre><code>- freeioe
+- 300lines
+</code></pre><hr>
+<h1 id="300-Lines-系列-—-RUT功能开发"><a href="#300-Lines-系列-—-RUT功能开发" class="headerlink" title="300 Lines 系列 — RUT功能开发"></a>300 Lines 系列 — RUT功能开发</h1><h2 id="什么是300-Lines-系列"><a href="#什么是300-Lines-系列" class="headerlink" title="什么是300 Lines 系列"></a>什么是300 Lines 系列</h2><p>基于FreeIOE开发一系列完整应用，将代码锁定在300行以内。用以展示如何进行FreeIOE应用开发。</p>
+<h3 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h3><p><a href="https://github.com/freeioe/freeioe_example_apps/blob/master/rtu/app.lua">RTU应用</a></p>
+<h2 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h2><p>应用只支持一个串口数据透传功能，如透传多个串口，需要多次安装应用。</p>
+<h3 id="支持串口配置"><a href="#支持串口配置" class="headerlink" title="支持串口配置"></a>支持串口配置</h3><ul>
+<li>支持串口参数配置，如波特率，数据位，停止位等等。</li>
+<li>支持可视化配置（安利一下冬笋云的可视化配置面板功能，<a href="https://github.com/thingsroot/docs/blob/master/Development/thingscloud/visual_config_ui/README.md">文档</a></li>
+</ul>
+<h3 id="支持TCP客户端和服务端模式"><a href="#支持TCP客户端和服务端模式" class="headerlink" title="支持TCP客户端和服务端模式"></a>支持TCP客户端和服务端模式</h3><p>二选一模式，并不支持两种并存。</p>
+<h4 id="支持客户端模式"><a href="#支持客户端模式" class="headerlink" title="支持客户端模式"></a>支持客户端模式</h4><ul>
+<li>可配置服务器地址和端口</li>
+<li>连接失败、被断开后要重连</li>
+<li>统计本次连接的收发字节数</li>
+</ul>
+<h4 id="支持服务器模式"><a href="#支持服务器模式" class="headerlink" title="支持服务器模式"></a>支持服务器模式</h4><ul>
+<li>可配置本地监听地址和端口（默认是0.0.0.0，即所有网卡)</li>
+<li>有新客户端连接后，踢掉之前的连接，保证只有一个客户端能进行数据首发</li>
+<li>统计当前活跃客户端的首发字节数</li>
+</ul>
+<h2 id="功能设计"><a href="#功能设计" class="headerlink" title="功能设计"></a>功能设计</h2><h3 id="串口读写"><a href="#串口读写" class="headerlink" title="串口读写"></a>串口读写</h3><p>FreeIOE有以下几种层面的串口读写接口:</p>
+<ul>
+<li>SerialChannel</li>
+<li>app.port.serial</li>
+<li>SerialDriver</li>
+<li>rs232</li>
+</ul>
+<h4 id="SerialChannel"><a href="#SerialChannel" class="headerlink" title="SerialChannel"></a>SerialChannel</h4><p>此接口仿造SocketChannel（<a href="https://github.com/cloudwu/skynet/wiki/SocketChannel">文档</a> ),支持两种模式：</p>
+<ol>
+<li>问答模式。数据永远都是一问一答，比较适合用以Modbus Master应用开发。</li>
+<li>异步模式。要求每个报文有自己的唯一ID，比较罕见的模式。我也不知道什么协议能用（瀑布汗!!!)</li>
+</ol>
+<p>结论：适合做协议通讯，但是不适合做数据透传</p>
+<h4 id="app-port-serial"><a href="#app-port-serial" class="headerlink" title="app.port.serial"></a>app.port.serial</h4><p>此接口其实是SerialChannel的上层封装，并支持了读取超时的逻辑。 (文档无，怒!!)</p>
+<p>结论：还是只适合类Modbus的协议通讯</p>
+<h4 id="SerialDriver"><a href="#SerialDriver" class="headerlink" title="SerialDriver"></a>SerialDriver</h4><p>rs232模块的轻度封装，增加了数据就绪回调功能。(文档无，怒!! × 2)</p>
+<p>结论: 找到适合的接口，文档去哪里了？ 等我后补吧…..</p>
+<h4 id="rs232"><a href="#rs232" class="headerlink" title="rs232"></a>rs232</h4><p>librs232的lua接口模块，只是映射了串口的数据读取，串口参数控制的系统接口。 文档？不好意思没有 :-(  请参考<a href="https://github.com/srdgame/librs232/blob/master/doc/example.lua">示例</a></p>
+<p>结论: 最原生，确实需要更多的代码进行控制。</p>
+<h3 id="网络读写"><a href="#网络读写" class="headerlink" title="网络读写"></a>网络读写</h3><p>同串口读写，FreeIOE也有一些不同层面的接口:</p>
+<ul>
+<li>SocketChannel</li>
+<li>app.port.socket</li>
+<li>Socket</li>
+<li>lsocket</li>
+</ul>
+<h4 id="SocketChannel"><a href="#SocketChannel" class="headerlink" title="SocketChannel"></a>SocketChannel</h4><p>没啥好说的, Skynet的SocketChannel模块，具体说明请参考<a href="https://github.com/cloudwu/skynet/wiki/SocketChannel">文档</a></p>
+<p>结论: 同SerialChannel</p>
+<h4 id="app-port-socket"><a href="#app-port-socket" class="headerlink" title="app.port.socket"></a>app.port.socket</h4><p>没啥好说的同 app.port.serial</p>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>Skynet的socket封装模块，<a href="https://github.com/cloudwu/skynet/wiki/Socket">文档在此</a></p>
+<p>结论: 原生就是好，还有文档的。 （鄙视自己,明天就补文档…. 我是寒号鸟)</p>
+<h4 id="lsocket"><a href="#lsocket" class="headerlink" title="lsocket"></a>lsocket</h4><p>云大移植lsocket模块，功能更多，<a href="https://github.com/cloudwu/lsocket/tree/master/doc">文档</a></p>
+<p>结论：大杀器，比Socket支持更多的功能（如本地socket,获取本地网卡信息） </p>
+<h3 id="接口选择结论"><a href="#接口选择结论" class="headerlink" title="接口选择结论"></a>接口选择结论</h3><p>好吧，上面看的好烦，来让我们直面残酷的选择….</p>
+<ol>
+<li>使用SerialDriver</li>
+<li>使用skynet.Socket</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>好了，到这里就只有干货了。我们谈谈整体应用结构。</p>
+<h3 id="应用基础类"><a href="#应用基础类" class="headerlink" title="应用基础类"></a>应用基础类</h3><p>可以叫基础类吧，毕竟我是C艹程序员。上<a href="https://github.com/freeioe/freeioe_app_api_book/blob/master/app/base/init.md">文档</a></p>
+<p>我们需要实现的接口只有:</p>
+<ol>
+<li>initialize: 初始化</li>
+<li>on_start: 打开串口、发起连接/监听端口</li>
+<li>on_close: 关闭连接和串口</li>
+<li>on_run: 统计数据透传字节数</li>
+</ol>
+<p>initialize, on_close, on_run这些就不罗嗦了，看代码就好，很简单。重点讲on_start函数。</p>
+<h3 id="on-start做了什么？"><a href="#on-start做了什么？" class="headerlink" title="on_start做了什么？"></a>on_start做了什么？</h3><ul>
+<li>创建透传数据依赖的设备模型实例</li>
+<li>根据配置打开串口</li>
+<li>设定串口数据接收处理函数</li>
+<li>开启TCP连接/监听</li>
+</ul>
+<h3 id="串口数据接收监听"><a href="#串口数据接收监听" class="headerlink" title="串口数据接收监听"></a>串口数据接收监听</h3><pre><code class="lua">port:start(<span class="function"><span class="keyword">function</span><span class="params">(data, err)</span></span>
+...
+<span class="keyword">end</span>)
+</code></pre>
+<p>这里设定的数据接收回调有两个参数: data, err<br>data是接收到的数据流，为空时说明发生了串口错误<br>err是串口错误信息</p>
+<p>遇到串口错误怎么处理？ 当然是不处理（老板扣工资ing…)<br>这里应该做的是发送设备事件，让用户知道这个错误，并重启应用自身（参考应用开发手册）。如此老板会给你加薪的!!!</p>
+<p>这部分代码只需要实现：</p>
+<pre><code>* 检测一下连接是否存在，存在就将数据流发往socket。
+* 调用dump_comm保证调试时能看到数据流
+</code></pre><h3 id="网络连接（客户端-）"><a href="#网络连接（客户端-）" class="headerlink" title="网络连接（客户端 ）"></a>网络连接（客户端 ）</h3><p>无论是Client还是Server模式，这里都做了一个重启链接的方法 <code>function app:connect_proc</code></p>
+<p>主要逻辑是递增式发起连接/监听请求，直到成功为止。 发起连接的时间间隔是不停的×2，来增加间隔时间，当然最大时间间隔不超过64秒。</p>
+<p>而客户端模式只需要调用socket.open函数，调用成功后就转入watch_client_socket函数，进行无限制的数据接手并写入串口句柄。</p>
+<h3 id="网络监听（服务器"><a href="#网络监听（服务器" class="headerlink" title="网络监听（服务器)"></a>网络监听（服务器)</h3><p>服务方式要先进行端口监听,即调用socket.listen函数。 listen成功后调用socket.start(fd, function(fd, addr) end) 对连接进来的客户端进行处理。</p>
+<p>这里要特别注意进来的客户端fd, 要调用一次socket.start(fd)， 让本应用来处理这个客户端句柄的数据流（skynet的设计机制是可以将这个句柄传输给其他服务进程，从而让另外一个服务进程处理数据流）。</p>
+<p>服务器模式的下的watch_server_socket比客户端复杂的地方在于需要同时检测监听用的句柄和当然客户端句柄。</p>
+<h2 id="完善"><a href="#完善" class="headerlink" title="完善"></a>完善</h2><p>这个应用本身只是做了一个简单的透传应用，逻辑也只是无限制透明传输，甚至服务器模式处理新连接的方式也只有踢掉前一个连接。因此如果想将这个应用做的更好：</p>
+<ol>
+<li>支持更多配置参数（Socket心跳，限制客户端登入地址，限制重连次数）</li>
+<li>支持简单的包解析（包头、包尾）</li>
+<li>支持安全认证</li>
+</ol>
