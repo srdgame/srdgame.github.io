@@ -1,5 +1,5 @@
 ---
-title: 300 Lines 系列之RTU功能
+title: 300 Lines 系列之数据透传(RTU)功能
 date: 2019-07-13 15:56:04
 categories:
 	- freeioe
@@ -9,7 +9,7 @@ tags:
 	- 300lines
 ---
 
-# 300 Lines 系列 --- RUT功能开发
+# 300 Lines 系列 --- RTU(数据透传)功能开发
 
 ## 什么是300 Lines 系列
 
