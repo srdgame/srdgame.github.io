@@ -17,7 +17,7 @@ tags:
 
 ### 上代码
 
-[RTU应用](https://github.com/freeioe/freeioe_example_apps/blob/master/rtu/app.lua)
+[RTU应用](https://github.com/freeioe/freeioe_example_apps/blob/master/other/rtu/app.lua)
 
 
 ## 功能需求
