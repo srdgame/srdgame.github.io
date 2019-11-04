@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-31 22:07:38" itemprop="dateModified" datetime="2019-07-31T22:07:38+08:00">2019-07-31</time>
+                <time title="Modified: 2019-11-04 19:16:37" itemprop="dateModified" datetime="2019-11-04T19:16:37+08:00">2019-11-04</time>
               </span>
             
           
@@ -452,46 +452,9 @@
 <li>有新客户端连接后，踢掉之前的连接，保证只有一个客户端能进行数据首发</li>
 <li>统计当前活跃客户端的首发字节数</li>
 </ul>
-<h2 id="功能设计"><a href="#功能设计" class="headerlink" title="功能设计"></a>功能设计</h2><h3 id="串口读写"><a href="#串口读写" class="headerlink" title="串口读写"></a>串口读写</h3><p>FreeIOE有以下几种层面的串口读写接口:</p>
-<ul>
-<li>SerialChannel</li>
-<li>app.port.serial</li>
-<li>SerialDriver</li>
-<li>rs232</li>
-</ul>
-<h4 id="SerialChannel"><a href="#SerialChannel" class="headerlink" title="SerialChannel"></a>SerialChannel</h4><p>此接口仿造SocketChannel（<a href="https://github.com/cloudwu/skynet/wiki/SocketChannel" target="_blank" rel="noopener">文档</a> ),支持两种模式：</p>
-<ol>
-<li>问答模式。数据永远都是一问一答，比较适合用以Modbus Master应用开发。</li>
-<li>异步模式。要求每个报文有自己的唯一ID，比较罕见的模式。我也不知道什么协议能用（瀑布汗!!!)</li>
-</ol>
-<p>结论：适合做协议通讯，但是不适合做数据透传</p>
-<h4 id="app-port-serial"><a href="#app-port-serial" class="headerlink" title="app.port.serial"></a>app.port.serial</h4><p>此接口其实是SerialChannel的上层封装，并支持了读取超时的逻辑。 (文档无，怒!!)</p>
-<p>结论：还是只适合类Modbus的协议通讯</p>
-<h4 id="SerialDriver"><a href="#SerialDriver" class="headerlink" title="SerialDriver"></a>SerialDriver</h4><p>rs232模块的轻度封装，增加了数据就绪回调功能。(文档无，怒!! × 2)</p>
-<p>结论: 找到适合的接口，文档去哪里了？ 等我后补吧…..</p>
-<h4 id="rs232"><a href="#rs232" class="headerlink" title="rs232"></a>rs232</h4><p>librs232的lua接口模块，只是映射了串口的数据读取，串口参数控制的系统接口。 文档？不好意思没有 :-(  请参考<a href="https://github.com/srdgame/librs232/blob/master/doc/example.lua" target="_blank" rel="noopener">示例</a></p>
-<p>结论: 最原生，确实需要更多的代码进行控制。</p>
-<h3 id="网络读写"><a href="#网络读写" class="headerlink" title="网络读写"></a>网络读写</h3><p>同串口读写，FreeIOE也有一些不同层面的接口:</p>
-<ul>
-<li>SocketChannel</li>
-<li>app.port.socket</li>
-<li>Socket</li>
-<li>lsocket</li>
-</ul>
-<h4 id="SocketChannel"><a href="#SocketChannel" class="headerlink" title="SocketChannel"></a>SocketChannel</h4><p>没啥好说的, Skynet的SocketChannel模块，具体说明请参考<a href="https://github.com/cloudwu/skynet/wiki/SocketChannel" target="_blank" rel="noopener">文档</a></p>
-<p>结论: 同SerialChannel</p>
-<h4 id="app-port-socket"><a href="#app-port-socket" class="headerlink" title="app.port.socket"></a>app.port.socket</h4><p>没啥好说的同 app.port.serial</p>
-<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>Skynet的socket封装模块，<a href="https://github.com/cloudwu/skynet/wiki/Socket" target="_blank" rel="noopener">文档在此</a></p>
-<p>结论: 原生就是好，还有文档的。 （鄙视自己,明天就补文档…. 我是寒号鸟)</p>
-<h4 id="lsocket"><a href="#lsocket" class="headerlink" title="lsocket"></a>lsocket</h4><p>云大移植lsocket模块，功能更多，<a href="https://github.com/cloudwu/lsocket/tree/master/doc" target="_blank" rel="noopener">文档</a></p>
-<p>结论：大杀器，比Socket支持更多的功能（如本地socket,获取本地网卡信息） </p>
-<h3 id="接口选择结论"><a href="#接口选择结论" class="headerlink" title="接口选择结论"></a>接口选择结论</h3><p>好吧，上面看的好烦，来让我们直面残酷的选择….</p>
-<ol>
-<li>使用SerialDriver</li>
-<li>使用skynet.Socket</li>
-</ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>好了，到这里就只有干货了。我们谈谈整体应用结构。</p>
-<h3 id="应用基础类"><a href="#应用基础类" class="headerlink" title="应用基础类"></a>应用基础类</h3><p>可以叫基础类吧，毕竟我是C艹程序员。上<a href="https://github.com/freeioe/freeioe_app_api_book/blob/master/app/base/init.md" target="_blank" rel="noopener">文档</a></p>
+<h2 id="功能设计"><a href="#功能设计" class="headerlink" title="功能设计"></a>功能设计</h2><h3 id="串口读写"><a href="#串口读写" class="headerlink" title="串口读写"></a>串口读写</h3><p>这里我们选择 FreeIOE内置的模块 SerialDriver 来进行串口读写。具体接口文档请<a href="https://github.com/freeioe/freeioe_app_api_book/blob/master/other/serialdriver.md" target="_blank" rel="noopener">参考</a></p>
+<h3 id="网络读写"><a href="#网络读写" class="headerlink" title="网络读写"></a>网络读写</h3><p>FreeIOE的底层框架是Skynet，所以我们可以直接使用Skynet底层的socket操作模块。<a href="https://github.com/cloudwu/skynet/wiki/Socket" target="_blank" rel="noopener">文档在此</a></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="应用基础类"><a href="#应用基础类" class="headerlink" title="应用基础类"></a>应用基础类</h3><p>可以叫基础类吧，毕竟我是C艹程序员。上<a href="https://github.com/freeioe/freeioe_app_api_book/blob/master/app/base/init.md" target="_blank" rel="noopener">文档</a></p>
 <p>我们需要实现的接口只有:</p>
 <ol>
 <li>initialize: 初始化</li>
